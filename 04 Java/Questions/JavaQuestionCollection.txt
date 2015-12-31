@@ -1,0 +1,8 @@
+1. 简单工厂模式、工厂方法模式和抽象工厂模式的区别
+2. abstract 、interface、abstract interface
+3. Map VS  Map<String, String>
+4. XML DOM解析 VS Sax解析
+5. XML解析 (Dom Sax Dom4j JDom JAXB)  VS Sax
+6. ArrayList VS LinkedList
+7. xPath
+8. DTD VS Schema
