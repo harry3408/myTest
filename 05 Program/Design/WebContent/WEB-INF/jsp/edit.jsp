@@ -19,7 +19,7 @@
     String userName = user != null ? user.getUserName() : "";
     String password = user != null ? user.getUserPassword() : "";
 %>
-    <form action="/Design/edit" method="Post">
+    <form action="/Design/save.action" method="Post">
         <table>
             <tr>
                 <td>Id:</td>

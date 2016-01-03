@@ -19,7 +19,7 @@
     	<%
     	   String baseURI = request.getContextPath();
         %>
-		window.location.href =  "<%=baseURI %>/edit";
+		window.location.href =  "<%=baseURI %>/edit.action";
 	}
 </script>
 </head>
@@ -39,8 +39,8 @@
            <tr>
              <td><%=user.getUserId() %></td>
              <td><%=user.getUserName() %></td>
-             <td><a href="/Design/edit?id=<%=user.getUserId()%>">edit</a></td>
-             <td><a href="/Design/delete?id=<%=user.getUserId()%>">delete</a></td>
+             <td><a href="/Design/edit.action?id=<%=user.getUserId()%>">edit</a></td>
+             <td><a href="/Design/delete.action?id=<%=user.getUserId()%>">delete</a></td>
            </tr>
           <%
       }
