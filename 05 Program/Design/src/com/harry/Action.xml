@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
-    <action  />
+    <!-- <action name="users.action" class="com.harry.Controller.UserController" method="users" httpMethod="post"> </action> -->
+    <action name="users" class="com.harry.Controller.UserController" method="users" >
+        <result name="sucess" view="WEB-INF/jsp/list.jsp" redirect="false"/>
+    </action>
+    <action name="delete" class="com.harry.Controller.UserController" method="delete" > 
+        <result name="sucess" view="users.action" redirect="true"/>
+    </action>
+    <action name="edit" class="com.harry.Controller.UserController" method="edit" > 
+        <result name="sucess" view="WEB-INF/jsp/edit.jsp" redirect="false"/>
+    </action>
+    <action name="save" class="com.harry.Controller.UserController" method="save" httpMethod="post">
+        <result name="sucess" view="users.action" redirect="true"/>
+    </action>
+
+    <action name="login" class="com.harry.Controller.UserController" method="login" > 
+        <result name="sucess" view="WEB-INF/jsp/login.jsp" redirect="false"/>
+    </action>
+
+    <action name="saveLogin" class="com.harry.Controller.UserController" method="saveLogin" httpMethod="post"> 
+        <result name="error" view="users.action" redirect="true" viewParameter="go:parameter"/>
+        <result name="error" view="WEB-INF/jsp/login.jsp" redirect="false"/>
+    </action>
 </actions>
