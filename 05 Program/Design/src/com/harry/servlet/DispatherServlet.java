@@ -57,10 +57,10 @@ public class DispatherServlet extends HttpServlet {
                 }
                 String[] httpMethodArr = httpMethodStr.split(",");
                 ActionConfig actionConfig = new ActionConfig(className, methodName, httpMethodArr);
+
                 NodeList resultNodeList = actionElement.getElementsByTagName("result");
                 int resultNodeListCount = resultNodeList.getLength();
                 if (resultNodeListCount > 0) {
-                    List<ResultConfig> resultConfigs = new ArrayList<ResultConfig>();
                     for (int i = 0; i < resultNodeListCount; i++) {
                         Element resultElement = (Element) resultNodeList.item(i);
 
@@ -82,11 +82,9 @@ public class DispatherServlet extends HttpServlet {
                                 viewParamters.add(new ViewParamter(parameterName, parameterFrom));
                             }
                         }
-                        ResultConfig resultConfig = new ResultConfig(resultName, resultView, Boolean.parseBoolean(redirect));
-                        resultConfig.setViewParamters(viewParamters);
-                        resultConfigs.add(resultConfig);
+                        ResultConfig resultConfig = new ResultConfig(resultName, resultView, Boolean.parseBoolean(redirect), viewParamters);
+                        actionConfig.addResultConfig(resultName, resultConfig);
                     }
-                    actionConfig.setResultConfigs(resultConfigs);
                 }
                 for(int j = 0; j < httpMethodArr.length; j ++) {
                     actionConfigs.put(name + suffix + "#" + httpMethodArr[j], actionConfig);
@@ -150,16 +148,51 @@ public class DispatherServlet extends HttpServlet {
                 for (Entry<String, Object> entry : modelAndView.getRequestParameters().entrySet()) {
                     request.setAttribute(entry.getKey(), entry.getValue());
                 }
-
-                List<ResultConfig> resultConfigs = actionCofing.getResultConfigs();
-                if (resultConfigs.isEmpty()) {
+                
+                String viewName = modelAndView.getView();
+                ResultConfig resultConfig = actionCofing.getResultConfig(viewName);
+                if (resultConfig == null) {
                     if (modelAndView.isRedirect()) {
-                        response.sendRedirect(modelAndView.getView());
+                        response.sendRedirect(request.getContextPath() + "/" + modelAndView.getView());
                     } else {
                         request.getRequestDispatcher(modelAndView.getView()).forward(request, response);
                     }
                 } else {
-                    
+                    if (resultConfig.getRedirect()) {
+                        String resultView = request.getContextPath() + "/" + resultConfig.getView();
+                        List<ViewParamter> viewParamters = resultConfig.getViewParamters();
+                        if (viewParamters == null || viewParamters.isEmpty()) {
+                            response.sendRedirect(resultView);
+                        } else {
+                            StringBuilder sb = new StringBuilder();
+                            boolean isFirstAppend = true;
+                            for(ViewParamter viewParamter : viewParamters) {
+                                String name = viewParamter.getName();
+                                String from = viewParamter.getFrom();
+                                String uriParameter = "";
+                                String value = "";
+                                if ("session".equalsIgnoreCase(from)) {
+                                    value = (String)request.getSession().getAttribute(name);
+                                } else if ("parameter".equalsIgnoreCase(from)) {
+                                    value = request.getParameter(name);
+                                } else {
+                                    value = (String)request.getAttribute(name);
+                                }
+                                uriParameter = name + "=" + value;
+                                if(isFirstAppend) {
+                                    uriParameter = "?" + uriParameter;
+                                    isFirstAppend = false;
+                                } else {
+                                    uriParameter = "&" + uriParameter;
+                                }
+                                sb.append(name + "=" + value);
+                            }
+                            resultView = resultView + sb.toString();
+                            response.sendRedirect(resultView);
+                        }
+                    } else {
+                        request.getRequestDispatcher(resultConfig.getView()).forward(request, response);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

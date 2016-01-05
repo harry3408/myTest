@@ -1,13 +1,13 @@
 package com.harry.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActionConfig {
     private String className;
     private String methodName;
     private String[] httpMethod;
-    private List<ResultConfig> resultConfigs = new ArrayList<ResultConfig>();
+    private Map<String, ResultConfig> resultConfigs = new HashMap<String, ResultConfig>();
 
     public ActionConfig(String className, String methodName, String[] httpMethod) {
         this.className = className;
@@ -27,11 +27,15 @@ public class ActionConfig {
         return httpMethod;
     }
 
-    public List<ResultConfig> getResultConfigs() {
+    public Map<String, ResultConfig> getResultConfigs() {
         return resultConfigs;
     }
 
-    public void setResultConfigs(List<ResultConfig> resultConfigs) {
-        this.resultConfigs = resultConfigs;
+    public void addResultConfig(String resultName, ResultConfig resultConfig) {
+        this.resultConfigs.put(resultName, resultConfig);
+    }
+
+    public ResultConfig getResultConfig(String resultName) {
+        return resultConfigs.get(resultName);
     }
 }

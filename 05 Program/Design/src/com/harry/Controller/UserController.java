@@ -34,7 +34,7 @@ public class UserController {
         UserService userService = new UserService();
         String id = paramters.get("id");
         userService.delete(Integer.parseInt(id));
-        modelAndView.setView(paramters.get(Const.PARAM_CONTEXT_PATH) + Const.USERS_SELVLET);
+        modelAndView.setView(Const.USERS_SELVLET);
         return modelAndView;
     }
 
@@ -70,7 +70,7 @@ public class UserController {
         } else {
             userService.create(user);
         }
-        modelAndView.setView(paramters.get(Const.PARAM_CONTEXT_PATH) + Const.USERS_SELVLET);
+        modelAndView.setView(Const.USERS_SELVLET);
         return modelAndView;
     }
 
@@ -78,7 +78,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
 
         if (sessions.get(Const.PARAM_USER) != null) {
-            modelAndView.setView(paramters.get(Const.PARAM_CONTEXT_PATH) + Const.USERS_SELVLET);
+            modelAndView.setView(Const.USERS_SELVLET);
         } else {
             String goPage = paramters.get("go");
             if (!StringUtil.isEmpty(goPage)) {
@@ -104,9 +104,9 @@ public class UserController {
                 modelAndView.addRequestSession(Const.PARAM_USER, user);
                 String goPage = paramters.get("go");
                 if (!StringUtil.isEmpty(goPage)) {
-                    modelAndView.setView(paramters.get(Const.PARAM_CONTEXT_PATH) + "/" + goPage);
+                    modelAndView.setView("/" + goPage);
                 } else {
-                    modelAndView.setView(paramters.get(Const.PARAM_CONTEXT_PATH) + Const.USERS_SELVLET);
+                    modelAndView.setView(Const.USERS_SELVLET);
                 }
             }
         } catch (ParameterException e) {
