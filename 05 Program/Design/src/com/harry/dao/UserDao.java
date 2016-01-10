@@ -9,8 +9,13 @@ import com.harry.model.User;
 
 public class UserDao {
 
-    public int create(final User user) {
-        JDBCTemplet<User> jdbcTemplet = new JDBCTemplet<User>();
+    private JDBCTemplet<User> jdbcTemplet;
+    
+    public void setJdbcTemplet(JDBCTemplet<User> jdbcTemplet) {
+		this.jdbcTemplet = jdbcTemplet;
+	}
+
+	public int create(final User user) {
         String sql = "insert into data.person(user_name, user_pwd) values(?, ?);";
         return jdbcTemplet.create(sql, new JDBCCallback<User>() {
 
@@ -29,7 +34,6 @@ public class UserDao {
 
     public int delete(final int id) {
 
-        JDBCTemplet<User> jdbcTemplet = new JDBCTemplet<User>();
         String sql = "UPDATE data.person SET user_isdelete = 1 WHERE user_id = ?";
         return jdbcTemplet.update(sql, new JDBCCallback<User>() {
             @Override
@@ -45,7 +49,6 @@ public class UserDao {
     }
 
     public int update(final User user) {
-        JDBCTemplet<User> jdbcTemplet = new JDBCTemplet<User>();
         String sql = "UPDATE data.person SET user_name = ?, user_pwd = ? WHERE user_id = ? AND user_isdelete = 0";
         return jdbcTemplet.update(sql, new JDBCCallback<User>() {
 
@@ -65,7 +68,6 @@ public class UserDao {
 
     public List<User> read() {
         String sql = "SELECT * FROM data.person WHERE user_isdelete = 0";
-        JDBCTemplet<User> jdbcTemplet = new JDBCTemplet<User>();
         return jdbcTemplet.read(sql, new JDBCCallback<User>() {
             @Override
             public User rsToObject(ResultSet rs) throws SQLException {
@@ -82,7 +84,6 @@ public class UserDao {
     }
 
     public User readByUserName(final String userName) {
-        JDBCTemplet<User> jdbcTemplet = new JDBCTemplet<User>();
         String sql = "SELECT * FROM data.person WHERE user_name = ? AND user_isdelete = 0";
         return jdbcTemplet.readOne(sql, new JDBCCallback<User>() {
 
@@ -103,7 +104,6 @@ public class UserDao {
     }
 
     public User readByUserId(final int id) {
-        JDBCTemplet<User> jdbcTemplet = new JDBCTemplet<User>();
         String sql = "SELECT * FROM data.person WHERE user_id = ? AND user_isdelete = 0";
         return jdbcTemplet.readOne(sql, new JDBCCallback<User>() {
 

@@ -1,4 +1,4 @@
-package com.harry.model;
+package com.harry.common;
 
 import java.util.List;
 

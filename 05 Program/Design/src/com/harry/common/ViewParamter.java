@@ -1,4 +1,4 @@
-package com.harry.model;
+package com.harry.common;
 
 public class ViewParamter {
     private String name;
