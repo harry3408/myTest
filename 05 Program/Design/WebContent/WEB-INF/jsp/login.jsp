@@ -7,6 +7,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login</title>
+
+<%
+      String baseURL = request.getContextPath();
+  %>
+<link rel="stylesheet" type="text/css" href="<%=baseURL %>/static/styles/common.css" />
 </head>
   <body>
   <%
@@ -29,10 +34,10 @@
            goPage = request.getAttribute("go").toString();
        }
   %>
-    <form action="saveLogin.action" method="post">
-     User Name:<input type="text" name="userName" /><label><%=userNameR%></label><br />
-     Password: <input type="password" name="password" /><label><%=pwdR%></label><br />
-     <input type="submit" value="Submit" /> <br />
+    <form action="saveLogin.action" method="post" class="loginForm">
+     <div class="loginDiv">User Name:<input type="text" name="userName" /><label><%=userNameR%></label></div>
+     <div class="loginDiv">Password: <input type="password" name="password" /><label><%=pwdR%></label></div>
+     <div class="submitDiv"><input type="submit" value="Submit" /></div>
      <label><%= error %></label>
      <input type="hidden" name="go" value="<%=goPage %>" />
     </form>

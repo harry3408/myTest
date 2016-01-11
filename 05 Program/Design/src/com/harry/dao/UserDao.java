@@ -10,12 +10,12 @@ import com.harry.model.User;
 public class UserDao {
 
     private JDBCTemplet<User> jdbcTemplet;
-    
-    public void setJdbcTemplet(JDBCTemplet<User> jdbcTemplet) {
-		this.jdbcTemplet = jdbcTemplet;
-	}
 
-	public int create(final User user) {
+    public void setJdbcTemplet(JDBCTemplet<User> jdbcTemplet) {
+        this.jdbcTemplet = jdbcTemplet;
+    }
+
+    public int create(final User user) {
         String sql = "insert into data.person(user_name, user_pwd) values(?, ?);";
         return jdbcTemplet.create(sql, new JDBCCallback<User>() {
 

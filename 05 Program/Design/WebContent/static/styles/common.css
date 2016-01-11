@@ -1,7 +1,9 @@
 @CHARSET "UTF-8";
 
 table {
-	border: 1px solid blue;
+	border: 1px solid #73E0C8;
+    margin-top: 200px;
+    margin-left: 600px;
 }
 
 td {
@@ -9,4 +11,21 @@ td {
 	height: 20px;
 	text-align: center;
 	border: 1px solid green;
+}
+
+
+form {
+	margin-top: 200px;
+    width: 280;
+}
+
+.loginDiv{
+	margin-top:4px;
+}
+.loginForm {
+	margin-left: 550px;
+}
+.submitDiv {
+    margin-top:10px;
+    padding-left: 100px;
 }
