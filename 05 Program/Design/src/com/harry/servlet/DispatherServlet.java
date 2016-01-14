@@ -77,7 +77,7 @@ public class DispatherServlet extends HttpServlet {
 						if (!StringUtil.isEmpty(resultParameterStr)) {
 							String[] resultParameterArr = resultParameterStr.split(",");
 							for (int j = 0; j < resultParameterArr.length; j++) {
-								String[] parameterArr = resultParameterArr[i].split(":");
+								String[] parameterArr = resultParameterArr[j].split(":");
 								String parameterName = parameterArr[0].trim();
 								String parameterFrom = parameterArr[1].trim();
 								viewParamters.add(new ViewParamter(parameterName, parameterFrom));
@@ -191,7 +191,7 @@ public class DispatherServlet extends HttpServlet {
 								} else {
 									uriParameter = "&" + uriParameter;
 								}
-								sb.append(name + "=" + value);
+								sb.append(uriParameter);
 							}
 							resultView = resultView + sb.toString();
 							response.sendRedirect(resultView);

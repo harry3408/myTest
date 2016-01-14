@@ -14,4 +14,6 @@ public class Const {
     public static final String USERS_SELVLET = "users.action";
     public static final String LOGIN_SELVLET = "/login.action";
 
+    public static final String APP_CONTEXT_REQUEST = "appContextRequest";
+    public static final String APP_CONTEXT_RESPONSE = "appContextResponse";
 }
