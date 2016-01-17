@@ -16,4 +16,5 @@ public class Const {
 
     public static final String APP_CONTEXT_REQUEST = "appContextRequest";
     public static final String APP_CONTEXT_RESPONSE = "appContextResponse";
+    public static final String APP_CONTEXT_CONNECTHODER = "appContextConnecteHoder";
 }

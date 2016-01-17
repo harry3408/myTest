@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-	<bean id="jdbcTemplet" class="com.harry.dao.JDBCTemplet" scope="singleton" />
+	<bean id="jdbcTemplet" class="com.harry.common.JDBCTemplet" scope="singleton" />
 
-	<bean id="userDao" class="com.harry.dao.UserDao" scope="singleton">
+	<bean id="userDao" class="com.harry.dao.impl.UserDaoImpl" scope="singleton">
 		<Property name="jdbcTemplet" ref="jdbcTemplet" />
 	</bean>
 
-	<bean id="userService" class="com.harry.service.UserService" scope="singleton">
+	<bean id="userService" class="com.harry.service.impl.UserServiceImpl" scope="singleton">
 		<Property name="userDao" ref="userDao" />
 	</bean>
 

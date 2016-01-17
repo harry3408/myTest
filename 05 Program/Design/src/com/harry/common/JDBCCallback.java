@@ -1,4 +1,4 @@
-package com.harry.dao;
+package com.harry.common;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

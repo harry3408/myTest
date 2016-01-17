@@ -1,13 +1,16 @@
-package com.harry.dao;
+package com.harry.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.harry.common.JDBCCallback;
+import com.harry.common.JDBCTemplet;
+import com.harry.dao.UserDao;
 import com.harry.model.User;
 
-public class UserDao {
+public class UserDaoImpl implements UserDao {
 
     private JDBCTemplet<User> jdbcTemplet;
 
@@ -15,6 +18,7 @@ public class UserDao {
         this.jdbcTemplet = jdbcTemplet;
     }
 
+    @Override
     public int create(final User user) {
         String sql = "insert into data.person(user_name, user_pwd) values(?, ?);";
         return jdbcTemplet.create(sql, new JDBCCallback<User>() {
@@ -32,6 +36,7 @@ public class UserDao {
         });
     }
 
+    @Override
     public int delete(final int id) {
 
         String sql = "UPDATE data.person SET user_isdelete = 1 WHERE user_id = ?";
@@ -48,6 +53,7 @@ public class UserDao {
         });
     }
 
+    @Override
     public int update(final User user) {
         String sql = "UPDATE data.person SET user_name = ?, user_pwd = ? WHERE user_id = ? AND user_isdelete = 0";
         return jdbcTemplet.update(sql, new JDBCCallback<User>() {
@@ -66,6 +72,7 @@ public class UserDao {
         });
     }
 
+    @Override
     public List<User> read() {
         String sql = "SELECT * FROM data.person WHERE user_isdelete = 0";
         return jdbcTemplet.read(sql, new JDBCCallback<User>() {
@@ -83,6 +90,7 @@ public class UserDao {
         });
     }
 
+    @Override
     public User readByUserName(final String userName) {
         String sql = "SELECT * FROM data.person WHERE user_name = ? AND user_isdelete = 0";
         return jdbcTemplet.readOne(sql, new JDBCCallback<User>() {
@@ -103,6 +111,7 @@ public class UserDao {
         });
     }
 
+    @Override
     public User readByUserId(final int id) {
         String sql = "SELECT * FROM data.person WHERE user_id = ? AND user_isdelete = 0";
         return jdbcTemplet.readOne(sql, new JDBCCallback<User>() {
