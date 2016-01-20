@@ -21,4 +21,6 @@
     <bean id="userController" class="com.harry.controller.UserController" scope="singleton">
         <property name="userService" ref="userService" />
     </bean>
+
+	<bean id="springUtil" class="com.harry.utils.SpringUtil" />
 </beans>
