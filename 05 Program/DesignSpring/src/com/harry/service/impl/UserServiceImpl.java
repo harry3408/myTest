@@ -17,6 +17,10 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
+    private void initMethod() {
+        System.out.println("UserServiceImpl initMethod");
+    }
+
     @Override
     public User login(String userName, String password) throws ParameterException {
         ParameterException parameterException = new ParameterException();
