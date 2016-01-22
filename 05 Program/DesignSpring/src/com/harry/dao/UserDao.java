@@ -17,4 +17,6 @@ public interface UserDao {
     public User readByUserName(String userName);
 
     public User readByUserId(int id);
+
+    public List<User> query(String sql);
 }
