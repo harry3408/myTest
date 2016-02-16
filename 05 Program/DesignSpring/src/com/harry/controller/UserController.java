@@ -37,6 +37,7 @@ public class UserController {
         String id = paramters.get("id");
         userService.delete(Integer.parseInt(id));
         modelAndView.setView("sucess");
+        System.out.println("hello1");
         return modelAndView;
     }
 
