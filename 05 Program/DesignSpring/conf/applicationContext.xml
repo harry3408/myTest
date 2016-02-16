@@ -15,13 +15,13 @@
     http://www.springframework.org/schema/util/spring-util-3.0.xsd"
     default-autowire="byType">
 
-    <import resource="classpath*:service.xml" />
     <import resource="classpath*:dao.xml" />
+    <import resource="classpath*:service.xml" />
 
     <bean id="userController" class="com.harry.controller.UserController" scope="singleton" />
     <bean id="springUtil" class="com.harry.utils.SpringUtil" />
 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" autowire="byName">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
 
@@ -35,7 +35,7 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="pc" expression="execution(* com.harry.service*..*(..))" />
+        <aop:pointcut id="pc" expression="execution(* com.harry.service..*.*(..))" />
         <aop:advisor pointcut-ref="pc" advice-ref="txAdvice" order="1" />
     </aop:config>
 </beans>
