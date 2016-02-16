@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.harry.common.AppContext;
 import com.harry.common.Const;
 import com.harry.model.User;
 
@@ -53,6 +54,8 @@ public class SessionFilter implements Filter {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute(Const.PARAM_USER);
             if (user != null) {
+            	AppContext appContext = AppContext.getAppContext();
+            	appContext.setObjects(Const.APP_CONTEXT_USER_NAME, user.getUserName());
                 chain.doFilter(ServletRequest, ServletResponse);
             } else {
                 String goPage = getGoPage(request, requestURI);
