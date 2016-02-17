@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xsi:schemaLocation="http://www.springframework.org/schema/context 
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="http://www.springframework.org/schema/context 
     http://www.springframework.org/schema/context/spring-context-3.0.xsd
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -27,6 +24,8 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" autowire="byName">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
+    <!--<bean id="logMethodTimeAdvice" class="com.harry.service.impl.LogMethodTime" scope="singleton" /> -->
+    <bean id="logMethodTimeAdvice" class="com.harry.advice.LogMethodTimeAspect" scope="singleton" />
 
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
@@ -40,5 +39,13 @@
     <aop:config>
         <aop:pointcut id="pc" expression="execution(* com.harry.service..*.*(..))" />
         <aop:advisor pointcut-ref="pc" advice-ref="txAdvice" order="1" />
+        <!-- <aop:advisor pointcut-ref="pc" advice-ref="logMethodTimeAdvice" order="2"/> -->
+
+        <aop:aspect id="logMethodTimeAspect" ref="logMethodTimeAdvice">
+            <aop:pointcut id="businessService" expression="execution(* com.harry.service..*.*(..))" />
+            <aop:around pointcut-ref="businessService" method="doAround" />
+            <aop:before pointcut-ref="businessService" method="doBefore" />
+            <aop:after pointcut-ref="businessService" method="doAfter" />
+        </aop:aspect>
     </aop:config>
 </beans>
