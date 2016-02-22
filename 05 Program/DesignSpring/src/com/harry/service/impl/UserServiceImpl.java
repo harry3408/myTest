@@ -3,6 +3,7 @@ package com.harry.service.impl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.harry.common.Const;
 import com.harry.dao.UserDao;
@@ -14,8 +15,10 @@ import com.harry.utils.StringUtil;
 public class UserServiceImpl implements UserService {
 
     private Logger logger = Logger.getLogger(UserServiceImpl.class);
+
     private UserDao userDao;
 
+    @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int create(User user) {
-         return userDao.create(user);
+        return userDao.create(user);
     }
 
     @Override
