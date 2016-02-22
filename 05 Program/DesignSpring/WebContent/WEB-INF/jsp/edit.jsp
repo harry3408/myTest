@@ -23,7 +23,7 @@
         <table>
             <tr>
                 <td>Id:</td>
-                <td><input type="text" name="userId" value="<%= userId == -1 ? "" : userId%>" readonly="readonly"/></td>
+                <td><input type="text" name="id" value="<%= userId == -1 ? "" : userId%>" readonly="readonly"/></td>
             </tr>
             <tr>
                 <td>userName:</td>
@@ -31,12 +31,14 @@
             </tr>
             <tr>
                 <td>password:</td>
-                <td><input type="password" name="password" value="<%= password%>"/></td>
+                <td><input type="password" name="userPassword" value="<%= password%>"/></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="submit"/></td>
             </tr>
         </table>
+        <input type="hidden" name="userId" value = "<%= userId %>">
+        <input type="hidden" name="age" value = "1">
     </form>
 </body>
 </html>

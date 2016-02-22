@@ -7,7 +7,10 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,111 +26,101 @@ import com.harry.utils.StringUtil;
 @Controller
 @RequestMapping("/")
 public class UserController {
-    private UserService userService;
 
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+	@Autowired
+	private UserService userService;
 
-    @RequestMapping(value = "users.action", method = RequestMethod.GET)
-    public ModelAndView users(Map<String, Object> sessions, Map<String, String> paramters) throws IOException,
-            ServletException {
-        ModelAndView modelAndView = new ModelAndView();
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
-        List<User> users = userService.getAllUsers();
-        modelAndView.addObject(Const.PARAM_USER_LIST, users);
-        modelAndView.setViewName("list");
-        return modelAndView;
-    }
+	@RequestMapping(value = "users.action", method = RequestMethod.GET)
+	public ModelAndView users() throws IOException, ServletException {
+		ModelAndView modelAndView = new ModelAndView();
 
-    @RequestMapping(value = "delete.action", method = RequestMethod.GET)
-    public ModelAndView delete(Map<String, Object> sessions, Map<String, String> paramters) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
+		List<User> users = userService.getAllUsers();
+		modelAndView.addObject(Const.PARAM_USER_LIST, users);
+		modelAndView.setViewName("list");
+		return modelAndView;
+	}
 
-        String id = paramters.get("id");
-        userService.delete(Integer.parseInt(id));
-        modelAndView.setView(new RedirectView("users.action"));
-        return modelAndView;
-    }
+	@RequestMapping(value = "/delete.action/{userId}", method = RequestMethod.GET)
+	public ModelAndView delete(@PathVariable(value = "userId") int userId) throws IOException {
+		ModelAndView modelAndView = new ModelAndView();
 
-    @RequestMapping(value = "edit.action", method = RequestMethod.GET)
-    public ModelAndView edit(Map<String, Object> sessions, Map<String, String> paramters) throws IOException,
-            ServletException {
-        ModelAndView modelAndView = new ModelAndView();
+		userService.delete(userId);
+		modelAndView.setView(new RedirectView("users.action"));
+		return modelAndView;
+	}
 
-        String userId = paramters.get("id");
-        if (!StringUtil.isEmpty(userId)) {
-            User user = userService.getUserById(Integer.parseInt(userId));
-            if (user != null) {
-                modelAndView.addObject(Const.PARAM_USER, user);
-            }
-        }
-        modelAndView.setViewName("edit");
-        return modelAndView;
-    }
+	@RequestMapping(value = "/edit.action/{userId}", method = RequestMethod.GET)
+	public ModelAndView edit(@PathVariable(value = "userId") int userId) throws IOException, ServletException {
+		ModelAndView modelAndView = new ModelAndView();
 
-    @RequestMapping(value = "save.action", method = RequestMethod.POST)
-    public ModelAndView save(Map<String, Object> sessions, Map<String, String> paramters) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        String userName = paramters.get("userName");
-        String password = paramters.get("password");
-        user.setUserName(userName);
-        user.setUserPassword(password);
+		if (userId != -1) {
+			User user = userService.getUserById(userId);
+			if (user != null) {
+				modelAndView.addObject(Const.PARAM_USER, user);
+			}
+		}
+		modelAndView.setViewName("edit");
+		return modelAndView;
+	}
 
-        String userId = paramters.get("userId");
-        if (!StringUtil.isEmpty(userId)) {
-            user.setUserId(Integer.parseInt(userId));
-            userService.update(user);
-        } else {
-            userService.create(user);
-        }
-        modelAndView.setView(new RedirectView("users.action"));
-        return modelAndView;
-    }
+	@RequestMapping(value = "/save.action", method = RequestMethod.POST)
+	public ModelAndView save(@RequestBody User user) throws IOException {
+		ModelAndView modelAndView = new ModelAndView();
 
-    @RequestMapping(value = "login.action", method = RequestMethod.GET)
-    public ModelAndView login(Map<String, Object> sessions, Map<String, String> paramters) throws IOException,
-            ServletException {
-        ModelAndView modelAndView = new ModelAndView();
+		if (user.getUserId() != -1) {
+			userService.update(user);
+		} else {
+			userService.create(user);
+		}
+		modelAndView.setView(new RedirectView("users.action"));
+		return modelAndView;
+	}
 
-        if (sessions.get(Const.PARAM_USER) != null) {
-            modelAndView.setView(new RedirectView(Const.USERS_SELVLET));
-        } else {
-            String goPage = paramters.get("go");
-            if (!StringUtil.isEmpty(goPage)) {
-                modelAndView.addObject("go", goPage);
-            }
-            modelAndView.setViewName("login");
-        }
-        return modelAndView;
-    }
+	@RequestMapping(value = "login.action", method = RequestMethod.GET)
+	public ModelAndView login(Map<String, Object> sessions, Map<String, String> paramters)
+			throws IOException, ServletException {
+		ModelAndView modelAndView = new ModelAndView();
 
-    @RequestMapping(value = "saveLogin.action", method = RequestMethod.POST)
-    public ModelAndView saveLogin(@RequestParam(value = "userName", defaultValue = "") String userName,
-            @RequestParam(value = "password", defaultValue = "") String password,
-            @RequestParam(value = "go", defaultValue = "") String go, HttpSession session) throws IOException,
-            ServletException {
-        ModelAndView modelAndView = new ModelAndView();
+		if (sessions.get(Const.PARAM_USER) != null) {
+			modelAndView.setView(new RedirectView(Const.USERS_SELVLET));
+		} else {
+			String goPage = paramters.get("go");
+			if (!StringUtil.isEmpty(goPage)) {
+				modelAndView.addObject("go", goPage);
+			}
+			modelAndView.setViewName("login");
+		}
+		return modelAndView;
+	}
 
-        try {
-            User user = userService.login(userName, password);
-            if (user == null) {
-                modelAndView.addObject(Const.PARAM_LOGIN_ERROR, "userName or password is wrong.");
-                modelAndView.setViewName("login");
-            } else {
-                session.setAttribute(Const.PARAM_USER, user);
-                if (!StringUtil.isEmpty(go)) {
-                    modelAndView.setView(new RedirectView(go));
-                } else {
-                    modelAndView.setView(new RedirectView("users.action"));
-                }
-            }
-        } catch (ParameterException e) {
-            modelAndView.addObject(Const.PARAM_REQUIRED, e.getErrorMsg());
-            modelAndView.setViewName("login");
-        }
-        return modelAndView;
-    }
+	@RequestMapping(value = "saveLogin.action", method = RequestMethod.POST)
+	public ModelAndView saveLogin(@RequestParam(value = "userName", defaultValue = "") String userName,
+			@RequestParam(value = "password", defaultValue = "") String password,
+			@RequestParam(value = "go", defaultValue = "") String go, HttpSession session)
+					throws IOException, ServletException {
+		ModelAndView modelAndView = new ModelAndView();
 
+		try {
+			User user = userService.login(userName, password);
+			if (user == null) {
+				modelAndView.addObject(Const.PARAM_LOGIN_ERROR, "userName or password is wrong.");
+				modelAndView.setViewName("login");
+			} else {
+				session.setAttribute(Const.PARAM_USER, user);
+				if (!StringUtil.isEmpty(go)) {
+					modelAndView.setView(new RedirectView(go));
+				} else {
+					modelAndView.setView(new RedirectView("users.action"));
+				}
+			}
+		} catch (ParameterException e) {
+			modelAndView.addObject(Const.PARAM_REQUIRED, e.getErrorMsg());
+			modelAndView.setViewName("login");
+		}
+		return modelAndView;
+	}
 }

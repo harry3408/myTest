@@ -6,6 +6,7 @@ public class User {
 
     private String userName;
     private String userPassword;
+    
     private int age;
 
     public int getUserId() {
