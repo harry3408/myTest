@@ -20,16 +20,16 @@ import com.harry.model.User;
 
 public class UserDaoImpl implements UserDao {
 
-    private JdbcTemplate jdbcTemplet;
+    private JdbcTemplate jdbcTemplate;
 
-    public void setJdbcTemplet(JdbcTemplate jdbcTemplet) {
-        this.jdbcTemplet = jdbcTemplet;
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public int create(final User user) {
         KeyHolder keyHoder = new GeneratedKeyHolder();
-        jdbcTemplet.update(new PreparedStatementCreator() {
+        jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 String sql = "insert into data.person(user_name, user_pwd) values(?, ?);";
@@ -45,12 +45,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int delete(final int id) {
         String sql = "UPDATE data.person SET user_isdelete = 1 WHERE user_id = " + id;
-        return jdbcTemplet.update(sql);
+        return jdbcTemplate.update(sql);
     }
 
     @Override
     public int update(final User user) {
-        return jdbcTemplet.update(new PreparedStatementCreator() {
+        return jdbcTemplate.update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 String sql = "UPDATE data.person SET user_name = ?, user_pwd = ? WHERE user_id = ? AND user_isdelete = 0";
@@ -91,7 +91,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public List<User> query(String sql) {
-        List<User> userList = jdbcTemplet.query(sql, new RowMapper<User>() {
+        List<User> userList = jdbcTemplate.query(sql, new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return rsToUser(rs);

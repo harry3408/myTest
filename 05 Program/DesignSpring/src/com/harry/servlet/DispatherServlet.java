@@ -31,7 +31,7 @@ import com.harry.common.ViewParamter;
 import com.harry.utils.SpringUtil;
 import com.harry.utils.StringUtil;
 
-@WebServlet(urlPatterns = { "*.action" }, loadOnStartup = 1)
+//@WebServlet(urlPatterns = { "*.action" }, loadOnStartup = 1)
 public class DispatherServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final String suffix = ".action";
