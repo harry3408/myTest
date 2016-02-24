@@ -8,6 +8,15 @@ public class AppContext {
     private static ThreadLocal<AppContext> appcontextMap = new ThreadLocal<AppContext>();
 
     private Map<String, Object> objects = new HashMap<String, Object>();
+    private String appContextPath;
+
+    public String getAppContextPath() {
+        return appContextPath;
+    }
+
+    public void setAppContextPath(String appContextPath) {
+        this.appContextPath = appContextPath;
+    }
 
     public Object getObject(String key) {
         return objects.get(key);

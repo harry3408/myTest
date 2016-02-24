@@ -40,7 +40,7 @@
              <td><%=user.getUserId() %></td>
              <td><%=user.getUserName() %></td>
              <td><a href="/DesignSpring/edit.action/<%=user.getUserId()%>">edit</a></td>
-             <td><a href="/DesignSpring/delete.action?id=<%=user.getUserId()%>">delete</a></td>
+             <td><a href="/DesignSpring/delete.action/<%=user.getUserId()%>">delete</a></td>
            </tr>
           <%
       }

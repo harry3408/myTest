@@ -30,8 +30,12 @@ public class AppContextFilter implements Filter {
         AppContext appContext = AppContext.getAppContext();
         appContext.setObjects(Const.APP_CONTEXT_REQUEST, request);
         appContext.setObjects(Const.APP_CONTEXT_RESPONSE, response);
-        chain.doFilter(request, response);
-        AppContext.removeAppContext();
+        appContext.setAppContextPath(request.getContextPath());
+        try {
+            chain.doFilter(request, response);
+        } finally {
+            AppContext.removeAppContext();
+        }
     }
 
     public void init(FilterConfig fConfig) throws ServletException {
