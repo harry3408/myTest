@@ -34,7 +34,7 @@
            goPage = request.getAttribute("go").toString();
        }
   %>
-    <form action="saveLogin.action" method="post" class="loginForm">
+    <form action="/DesignSpring/page/saveLogin" method="post" class="loginForm">
      <div class="loginDiv">User Name:<input type="text" name="userName" /><label><%=userNameR%></label></div>
      <div class="loginDiv">Password: <input type="password" name="password" /><label><%=pwdR%></label></div>
      <div class="submitDiv"><input type="submit" value="Submit" /></div>

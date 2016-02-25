@@ -11,11 +11,13 @@ public class Const {
     public static final String PARAM_CONTEXT_PATH = "contextPath";
 
     public static final String LOGIN_PAGE = "WEB-INF/jsp/login.jsp";
-    public static final String USERS_SELVLET = "users.action";
-    public static final String LOGIN_SELVLET = "/login.action";
+    public static final String USERS_SELVLET = "users";
+    public static final String LOGIN_SELVLET = "login";
 
     public static final String APP_CONTEXT_REQUEST = "appContextRequest";
     public static final String APP_CONTEXT_RESPONSE = "appContextResponse";
     public static final String APP_CONTEXT_CONNECTHODER = "appContextConnecteHoder";
     public static final String APP_CONTEXT_USER_NAME= "appContextUserName";
+
+    public static final String URL_PREFIX = "/page/";
 }

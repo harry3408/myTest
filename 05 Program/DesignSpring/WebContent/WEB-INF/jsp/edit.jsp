@@ -19,7 +19,7 @@
     String userName = user != null ? user.getUserName() : "";
     String password = user != null ? user.getUserPassword() : "";
 %>
-    <form action="/DesignSpring/save.action" method="Post">
+    <form action="/DesignSpring/page/save" method="Post">
         <table>
             <tr>
                 <td>Id:</td>

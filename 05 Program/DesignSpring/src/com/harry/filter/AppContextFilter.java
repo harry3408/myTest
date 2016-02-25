@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.harry.common.AppContext;
 import com.harry.common.Const;
 
-@WebFilter(filterName = "AppContextFilter", urlPatterns = { "*.action" })
+@WebFilter(filterName = "AppContextFilter", urlPatterns = { "/page/*" })
 public class AppContextFilter implements Filter {
 
     public AppContextFilter() {

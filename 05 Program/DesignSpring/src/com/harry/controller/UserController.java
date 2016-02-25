@@ -1,6 +1,7 @@
 package com.harry.controller;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ import com.harry.service.UserService;
 import com.harry.utils.StringUtil;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/page/")
 public class UserController extends BaseController {
 
     @Autowired
@@ -34,7 +35,7 @@ public class UserController extends BaseController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "users.action", method = RequestMethod.GET)
+    @RequestMapping(value = "users", method = RequestMethod.GET)
     public ModelAndView users() throws IOException, ServletException {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -44,16 +45,16 @@ public class UserController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "delete.action/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "delete/{userId}", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable(value = "userId") int userId) throws IOException {
         ModelAndView modelAndView = new ModelAndView();
 
         userService.delete(userId);
-        modelAndView.setView(this.getRedirectView("users.action"));
+        modelAndView.setView(this.getRedirectView("users"));
         return modelAndView;
     }
 
-    @RequestMapping(value = "edit.action/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "edit/{userId}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable(value = "userId") int userId) throws IOException, ServletException {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -67,7 +68,7 @@ public class UserController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "save.action", method = RequestMethod.POST)
+    @RequestMapping(value = "save", method = RequestMethod.POST)
     public ModelAndView save(@RequestParam(value = "userId", defaultValue = "") int userId,
             @RequestParam(value = "userName", defaultValue = "") String userName,
             @RequestParam(value = "userPassword", defaultValue = "") String userPassword) throws IOException {
@@ -83,11 +84,11 @@ public class UserController extends BaseController {
         } else {
             userService.create(user);
         }
-        modelAndView.setView(this.getRedirectView("users.action"));
+        modelAndView.setView(this.getRedirectView("users"));
         return modelAndView;
     }
 
-    @RequestMapping(value = "login.action", method = RequestMethod.GET)
+    @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView login(Map<String, Object> sessions, Map<String, String> paramters) throws IOException,
             ServletException {
         ModelAndView modelAndView = new ModelAndView();
@@ -104,10 +105,10 @@ public class UserController extends BaseController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "saveLogin.action", method = RequestMethod.POST)
+    @RequestMapping(value = "saveLogin", method = RequestMethod.POST)
     public ModelAndView saveLogin(@RequestParam(value = "userName", defaultValue = "") String userName,
             @RequestParam(value = "password", defaultValue = "") String password,
-            @RequestParam(value = "go", defaultValue = "") String go, HttpSession session) throws IOException,
+            @RequestParam(value = "go", defaultValue="") String go, HttpSession session) throws IOException,
             ServletException {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -119,9 +120,10 @@ public class UserController extends BaseController {
             } else {
                 session.setAttribute(Const.PARAM_USER, user);
                 if (!StringUtil.isEmpty(go)) {
+                	go = URLDecoder.decode(go, "utf-8");
                     modelAndView.setView(this.getRedirectView(go));
                 } else {
-                    modelAndView.setView(this.getRedirectView("users.action"));
+                    modelAndView.setView(this.getRedirectView("users"));
                 }
             }
         } catch (ParameterException e) {

@@ -19,7 +19,7 @@
     	<%
     	   String baseURI = request.getContextPath();
         %>
-		window.location.href =  "<%=baseURI %>/edit.action/-1";
+		window.location.href =  "<%=baseURI %>/page/edit/-1";
 	}
 </script>
 </head>
@@ -39,8 +39,8 @@
            <tr>
              <td><%=user.getUserId() %></td>
              <td><%=user.getUserName() %></td>
-             <td><a href="/DesignSpring/edit.action/<%=user.getUserId()%>">edit</a></td>
-             <td><a href="/DesignSpring/delete.action/<%=user.getUserId()%>">delete</a></td>
+             <td><a href="/DesignSpring/page/edit/<%=user.getUserId()%>">edit</a></td>
+             <td><a href="/DesignSpring/page/delete/<%=user.getUserId()%>">delete</a></td>
            </tr>
           <%
       }
