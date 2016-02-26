@@ -30,8 +30,8 @@
            error = request.getAttribute(Const.PARAM_LOGIN_ERROR).toString();
        }
        String goPage = "";
-       if(request.getAttribute("go") != null) {
-           goPage = request.getAttribute("go").toString();
+       if(request.getParameter("go") != null) {
+           goPage = request.getParameter("go").toString();
        }
   %>
     <form action="/DesignSpring/page/saveLogin" method="post" class="loginForm">
