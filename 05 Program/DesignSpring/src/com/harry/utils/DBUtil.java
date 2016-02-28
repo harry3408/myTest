@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import com.harry.exception.DBException;
 
 public class DBUtil {
-    private static final String DBDRIVER = PropertiesUtil.getProperties("DBDRIVER");
-    private static final String DBURL = PropertiesUtil.getProperties("DBURL");
-    private static final String DBUSER = PropertiesUtil.getProperties("DBUSER");
-    private static final String DBPASSWORD = PropertiesUtil.getProperties("DBPASSWORD");
+    private static final String DBDRIVER = PropertyUtil.getProperties("DBDRIVER");
+    private static final String DBURL = PropertyUtil.getProperties("DBURL");
+    private static final String DBUSER = PropertyUtil.getProperties("DBUSER");
+    private static final String DBPASSWORD = PropertyUtil.getProperties("DBPASSWORD");
 
     public static Connection getConnection() throws DBException {
         Connection conn = null;

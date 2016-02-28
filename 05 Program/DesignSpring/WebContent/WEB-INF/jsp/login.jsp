@@ -2,6 +2,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="com.harry.common.Const" %>
+<%@ page import="com.harry.utils.PropertyUtil" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <%
       String baseURL = request.getContextPath();
   %>
-<link rel="stylesheet" type="text/css" href="<%=baseURL %>/static/styles/common.css" />
+<link rel="stylesheet" type="text/css" href="<%=PropertyUtil.getStaticUrl() %>/styles/common.css" />
 </head>
   <body>
   <%

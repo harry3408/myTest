@@ -18,6 +18,7 @@ public class Const {
     public static final String APP_CONTEXT_RESPONSE = "appContextResponse";
     public static final String APP_CONTEXT_CONNECTHODER = "appContextConnecteHoder";
     public static final String APP_CONTEXT_USER_NAME= "appContextUserName";
+    public static final String APP_CONTEXT_SESSION = "appContextSession";
 
     public static final String URL_PREFIX = "/page/";
 }

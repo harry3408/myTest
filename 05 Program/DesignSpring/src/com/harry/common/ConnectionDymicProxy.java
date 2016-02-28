@@ -53,7 +53,7 @@ public class ConnectionDymicProxy implements InvocationHandler {
                 DBUtil.close(null, null, hoder.getConn());
                 hoder.setConn(null);
                 hoder = null;
-                AppContext.removeAppContext();
+                AppContext.clean();
             }
         }
     }

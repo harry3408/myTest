@@ -18,26 +18,30 @@ import com.harry.common.Const;
 @WebFilter(filterName = "AppContextFilter", urlPatterns = { "/page/*" })
 public class AppContextFilter implements Filter {
 
-    public AppContextFilter() {
-    }
+	public AppContextFilter() {
+	}
 
-    public void destroy() {
-    }
+	public void destroy() {
+	}
 
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        AppContext appContext = AppContext.getAppContext();
-        appContext.setObjects(Const.APP_CONTEXT_REQUEST, request);
-        appContext.setObjects(Const.APP_CONTEXT_RESPONSE, response);
-        appContext.setAppContextPath(request.getContextPath());
-        try {
-            chain.doFilter(request, response);
-        } finally {
-            AppContext.removeAppContext();
-        }
-    }
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
+		AppContext appContext = AppContext.getAppContext();
+		appContext.setObjects(Const.APP_CONTEXT_REQUEST, request);
+		appContext.setObjects(Const.APP_CONTEXT_RESPONSE, response);
+		appContext.setObjects(Const.APP_CONTEXT_SESSION, request.getSession());
+		appContext.setAppContextPath(request.getContextPath());
+		try {
+			chain.doFilter(request, response);
+		} finally {
+			AppContext.clean();
+		}
+	}
 
-    public void init(FilterConfig fConfig) throws ServletException {
-    }
+	@Override
+	public void init(FilterConfig arg0) throws ServletException {
+
+	}
 }

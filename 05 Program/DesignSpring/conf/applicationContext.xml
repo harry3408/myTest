@@ -43,8 +43,8 @@
 
         <aop:aspect id="logMethodTimeAspect" ref="logMethodTimeAdvice">
             <aop:pointcut id="businessService" expression="execution(* com.harry.service..*.*(..))" />
-            <aop:around pointcut-ref="businessService" method="doAround" />
             <aop:before pointcut-ref="businessService" method="doBefore" />
+            <aop:around pointcut-ref="businessService" method="doAround" />
             <aop:after pointcut-ref="businessService" method="doAfter" />
         </aop:aspect>
     </aop:config>

@@ -37,8 +37,4 @@ public class LogMethodTimeAspect {
     public void doAfter(JoinPoint jp) {
         logger.info("...doAfter...");
     }
-
-    public void afterThrowing(JoinPoint jp) {
-        logger.info("...doThrowing...");
-    }
 }
