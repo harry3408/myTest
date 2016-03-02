@@ -32,6 +32,6 @@ public class PropertyUtil {
 	}
 
 	public static String getStaticUrl() {
-		return getProperties("static_url") + ":8081";
+		return getProperties("static_url");
 	}
 }
