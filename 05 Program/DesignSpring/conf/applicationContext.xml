@@ -48,4 +48,9 @@
             <aop:after pointcut-ref="businessService" method="doAfter" />
         </aop:aspect>
     </aop:config>
+
+    <bean id="listBlock" class="com.harry.taglib.block.ListBlock">
+        <property name="template" value="/WEB-INF/jsp/list_block.jsp"></property>
+        <property name="userService" ref="userService"></property>
+    </bean>
 </beans>
