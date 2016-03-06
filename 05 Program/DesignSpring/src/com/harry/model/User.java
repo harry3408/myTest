@@ -8,8 +8,17 @@ public class User {
     private String userPassword;
     
     private int age;
+    private boolean isDeleted;
+    
+    public boolean isDeleted() {
+		return isDeleted;
+	}
 
-    public int getUserId() {
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
+
+	public int getUserId() {
         return userId;
     }
 

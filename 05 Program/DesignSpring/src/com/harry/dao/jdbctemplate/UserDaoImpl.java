@@ -1,4 +1,4 @@
-package com.harry.dao.impl;
+package com.harry.dao.jdbctemplate;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
