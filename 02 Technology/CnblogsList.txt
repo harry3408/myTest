@@ -5,3 +5,16 @@ http://blog.csdn.net/niushuai666/article/list/24  //飘过的小牛
 http://www.infoq.com/cn/articles/java-memory-model-1 //并发内存解析
 
 http://www.docin.com/p-42677218.html?qq-pf-to=pcqq.temporaryc2c // 毕设参考
+
+----------------------------------------------------------------------------------+
+										资源下载																		|
+FTP地址：ftp://ftp1.linuxidc.com																	|
+用户名：ftp1.linuxidc.com																				|
+密码：www.linuxidc.com																				|
+在 2014年LinuxIDC.com\8月\Java编程思想(第4版) 中文清晰PDF完整版	|
+下载方法见 http://www.linuxidc.com/Linux/2013-10/91140.htm			|
+----------------------------------------------------------------------------------+
+http://yhjhappy234.blog.163.com/blog/#m=0										|
+http://vbird.dic.ksu.edu.tw/linux_basic/0210filepermission_4.php		|
+http://www.infoq.com/cn/articles/java-memory-model-2						|
+----------------------------------------------------------------------------------+
