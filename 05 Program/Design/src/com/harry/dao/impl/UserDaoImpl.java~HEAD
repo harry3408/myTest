@@ -1,5 +1,8 @@
 package com.harry.dao.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.harry.common.JDBCCallback;
@@ -7,11 +10,6 @@ import com.harry.common.JDBCTemplet;
 import com.harry.dao.UserDao;
 import com.harry.model.User;
 
-<<<<<<< HEAD:05 Program/Design/src/com/harry/dao/UserDao.java
-public interface UserDao {
-
-    public int create(User user);
-=======
 public class UserDaoImpl implements UserDao {
 
     private JDBCTemplet<User> jdbcTemplet;
@@ -24,19 +22,20 @@ public class UserDaoImpl implements UserDao {
     public int create(final User user) {
         String sql = "insert into data.person(user_name, user_pwd) values(?, ?);";
         return jdbcTemplet.create(sql, new JDBCCallback<User>() {
->>>>>>> 493aacda90640c7493e10edeb90a524c29c67dc5:05 Program/Design/src/com/harry/dao/impl/UserDaoImpl.java
 
-    public int delete(int id);
+            @Override
+            public void setParameters(PreparedStatement ps) throws SQLException {
+                ps.setString(1, user.getUserName());
+                ps.setString(2, user.getUserPassword());
+            }
 
-    public int update(User user);
+            @Override
+            public User rsToObject(ResultSet rs) throws SQLException {
+                return null;
+            }
+        });
+    }
 
-<<<<<<< HEAD:05 Program/Design/src/com/harry/dao/UserDao.java
-    public List<User> read();
-
-    public User readByUserName(String userName);
-
-    public User readByUserId(int id);
-=======
     @Override
     public int delete(final int id) {
 
@@ -132,5 +131,5 @@ public class UserDaoImpl implements UserDao {
             }
         });
     }
->>>>>>> 493aacda90640c7493e10edeb90a524c29c67dc5:05 Program/Design/src/com/harry/dao/impl/UserDaoImpl.java
+
 }

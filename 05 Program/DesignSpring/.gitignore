@@ -4,6 +4,7 @@
 *.jar
 *.war
 *.ear
+*.class
  
 # ignore Maven generated target folders
 target
@@ -14,3 +15,4 @@ target
 .settings
 .metadata
 /build
+
