@@ -7,7 +7,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import com.harry.dao.UserDao;
 import com.harry.model.User;
 
-public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
+public  class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 
 	public final String CLASS_NAME = User.class.getName();
 	public final String SQL_ID_CREATE = ".create";

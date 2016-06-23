@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.harry.model.User">
+	<resultMap type="User" id="userMap">
+		<id column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="user_pwd" property="userPassword" />
+		<result column="age" property="age" />
+		<result column="user_isdelete" property="isDeleted" />
+	</resultMap>
+
+	<insert id="create" useGeneratedKeys="true" parameterType="User" keyProperty="userId">
+		<![CDATA[
+			INSERT INTO data.person(user_name, user_pwd) VALUES (#{userName}, #{userPassword})
+		]]>
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			UPDATE data.person
+			SET
+				user_isdelete = 1
+			WHERE
+				user_id = #{userId} AND user_isdelete = 0
+		]]>
+	</delete>
+
+	<update id="update" parameterType="User">
+		<![CDATA[
+			UPDATE data.person
+			SET
+				user_name = #{userName},
+				user_pwd = #{userPassword},
+				age = #{age}
+			WHERE
+				user_id = #{userId} AND user_isdelete = 0
+		]]>
+	</update>
+
+	<select id="read" resultMap="userMap">
+		<![CDATA[
+			SELECT * FROM data.person WHERE user_isdelete = 0
+		]]>
+	</select>
+
+	<select id="readByUserName" parameterType="String" resultMap="userMap">
+		<![CDATA[
+			SELECT * FROM data.person WHERE user_name = #{userNamea} AND user_isdelete = 0
+		]]>
+	</select>
+
+	<select id="readByUserId" parameterType="int" resultMap="userMap">
+		<![CDATA[
+			SELECT * FROM data.person WHERE user_id = #{userId} AND user_isdelete = 0
+		]]>
+		<include refid="testSql" />
+	</select>
+
+	<sql id="testSql">
+		<if test="1==1">
+			<![CDATA[
+				AND 1 = 1
+			]]>
+		</if>
+	</sql>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

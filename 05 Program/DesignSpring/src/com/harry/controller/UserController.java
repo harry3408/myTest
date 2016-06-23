@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,7 +34,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping(value = "users", method = RequestMethod.GET)
-	public ModelAndView users() throws IOException, ServletException {
+	public ModelAndView users(Model model) throws IOException, ServletException {
 		ModelAndView modelAndView = new ModelAndView();
 
 		List<User> users = userService.getAllUsers();

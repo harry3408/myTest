@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+ xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:util="http://www.springframework.org/schema/util"
+ xsi:schemaLocation="http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+ <context:annotation-config />
+ 
+ <bean id="helloServiceOne" class="com.harry.service.HelloServiceImpl" />
+ <bean id="helloServiceTwo" class="com.harry.service.HelloServiceImplTwo" />
+ <bean id="userService" class="com.harry.service.UserService" init-method="initBySchema" destroy-method="destoryBySchema"/>
+ <bean id="testHelloService" class="com.harry.service.TestHelloService">
+    <property name="message" value="msg"></property>
+ </bean>
+ <bean id="schemaAspect" class="com.harry.aspect.SchemaAspect" scope="prototype"/>
+ <bean id="schemaAspectTwo" class="com.harry.aspect.SchemaAspectTwo" />
+ <bean id="annonationAspect" class="com.harry.aspect.AnnonationAspect" />
+ <bean id="beforeAdviceDIY" class="com.harry.advice.BeforeAdviceDIY" />
+<aop:aspectj-autoproxy />
+
+</beans>
+
+
+
+<!--
+  <aop:config>
+ <aop:aspect ref="schemaAspect" order="2">
+   <aop:before method="before" pointcut="within(com.harry..Hello*) and args(msg)"/>
+   <aop:before method="after" pointcut="within(com.harry..Hello*) and args(msg)"/>
+ </aop:aspect>
+ </aop:config>
+
+ <aop:declare-parents types-matching="com.harry.service.IHelloService+" 
+                      implement-interface="com.harry.service.declare.IDeclare"
+                      default-impl="com.harry.service.declare.DeclareImpl" />
+
+ <aop:before method="beforeHello()" pointcut="within(com.harry.service..*)" />
+
+ <aop:before method="beforeHello(java.lang.String, java.lang.String)"
+            pointcut="execution(* com.harry.service..*.*(..)) and args(msg2,msg)"
+            arg-names="msg, msg2" />
+
+  <aop:aspect ref="schemaAspect">
+
+   <aop:before method="beforeHello" pointcut="execution(* com.harry.service..*.*(..))" />
+
+  </aop:aspect>
+ 
+  <aop:advisor advice-ref="beforeAdviceDIY" pointcut="execution(* com.harry.service..*.*(..))"/>
+ -->

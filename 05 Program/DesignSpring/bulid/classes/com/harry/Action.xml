@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <!-- <action name="users.action" class="com.harry.Controller.UserController" 
+        method="users" httpMethod="POST"> </action> -->
+    <action name="users" class="userController" method="users">
+        <result name="sucess" view="WEB-INF/jsp/list.jsp"
+            redirect="false" />
+    </action>
+    <action name="delete" class="userController" method="delete">
+        <result name="sucess" view="users.action" redirect="true" />
+    </action>
+    <action name="edit" class="userController" method="edit">
+        <result name="sucess" view="WEB-INF/jsp/edit.jsp"
+            redirect="false" />
+    </action>
+    <action name="save" class="userController" method="save"
+        httpMethod="POST">
+        <result name="sucess" view="users.action" redirect="true" />
+    </action>
+
+    <action name="login" class="userController" method="login">
+        <result name="sucess" view="WEB-INF/jsp/login.jsp"
+            redirect="false" />
+    </action>
+
+    <action name="saveLogin" class="userController" method="saveLogin"
+        httpMethod="POST">
+        <result name="sucess" view="users.action" redirect="true" />
+        <result name="error" view="WEB-INF/jsp/login.jsp"
+            redirect="false" />
+    </action>
+</actions>
